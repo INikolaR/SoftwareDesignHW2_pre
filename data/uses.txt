@@ -1,0 +1,1 @@
+[{"name":"UUU","hashedPassword":"L","hasAdminPrivileges":false},{"name":"t","hashedPassword":"L","hasAdminPrivileges":false},{"name":"k","hashedPassword":"L","hasAdminPrivileges":false}]
