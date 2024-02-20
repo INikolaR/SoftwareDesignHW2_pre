@@ -2,7 +2,7 @@ package ru.hse._223.dal.repositories;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ru.hse._223.dal.entities.User;
+import ru.hse._223.dal.entities.UserEntity;
 import ru.hse._223.dal.exceptions.BadDataFileException;
 import ru.hse._223.dal.exceptions.CannotAccessDataFileException;
 import ru.hse._223.dal.repositories.interfaces.AuthRepository;
@@ -16,15 +16,15 @@ import java.util.ArrayList;
 public class DefaultAuthRepository implements AuthRepository {
     private final Path filePath;
     private final ObjectMapper objectMapper;
-    private final TypeReference<ArrayList<User>> typeReference;
+    private final TypeReference<ArrayList<UserEntity>> typeReference;
     public DefaultAuthRepository(String filePath) {
         this.filePath = Paths.get(filePath);
         objectMapper = new ObjectMapper();
-        typeReference = new TypeReference<ArrayList<User>>() {};
+        typeReference = new TypeReference<ArrayList<UserEntity>>() {};
     }
     @Override
-    public ArrayList<User> getUsers() throws CannotAccessDataFileException, BadDataFileException {
-        ArrayList<User> userList;
+    public ArrayList<UserEntity> getUsers() throws CannotAccessDataFileException, BadDataFileException {
+        ArrayList<UserEntity> userList;
         try {
             String data = Files.readString(filePath);
             userList = objectMapper.readValue(data, typeReference);
@@ -37,7 +37,7 @@ public class DefaultAuthRepository implements AuthRepository {
     }
 
     @Override
-    public void writeUsers(ArrayList<User> users) throws CannotAccessDataFileException, BadDataFileException {
+    public void writeUsers(ArrayList<UserEntity> users) throws CannotAccessDataFileException, BadDataFileException {
         try {
             String json = objectMapper.writeValueAsString(users);
             Files.writeString(filePath, json);
